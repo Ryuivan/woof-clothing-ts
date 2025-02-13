@@ -1,5 +1,5 @@
 import { createTheme, PaletteMode, responsiveFontSizes } from "@mui/material";
-import { amber, deepOrange, grey } from "@mui/material/colors";
+import { amber, grey } from "@mui/material/colors";
 
 let theme = createTheme({
   palette: {
@@ -16,22 +16,29 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       ? {
           // palette values for light mode
           primary: amber,
-          divider: amber[200],
+          divider: "#fac600",
+          background: {
+            default: grey[100],
+            primary: grey[300],
+            paper: grey[50],
+            navbar: "rgba(241, 241, 241, 0.6)",
+          },
           text: {
-            primary: grey[900],
+            primary: "#252627",
             secondary: grey[800],
           },
         }
       : {
           // palette values for dark mode
-          primary: deepOrange,
-          divider: deepOrange[700],
+          primary: grey,
+          divider: "#fac600",
           background: {
             default: "#121212",
-            paper: deepOrange[900],
+            paper: grey[900],
+            navbar: "rgba(0, 0, 0, 0.6)",
           },
           text: {
-            primary: "#fff",
+            primary: "#f1f1f1",
             secondary: grey[500],
           },
         }),
@@ -43,7 +50,11 @@ export const getDesignTokens = (mode: PaletteMode) => ({
       md: 768,
       lg: 1024,
       xl: 1280,
+      xxl: 1536,
     },
+  },
+  typography: {
+    fontFamily: "Poppins, sans-serif",
   },
 });
 

@@ -1,13 +1,18 @@
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
 import NightModeToggle from "../theme/NightModeToggle";
 
 const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Box>
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "white",
+      }}
+    >
       {children}
       <NightModeToggle />
-    </Box>
+    </Container>
   );
 };
 

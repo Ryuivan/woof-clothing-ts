@@ -4,7 +4,7 @@ import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { useThemeContext } from "./context/ThemeProvider";
 import MainLayout from "./components/layout/MainLayout";
-import Header from "./components/layout/Header";
+import Header from "./components/layout/header/Header";
 
 function App() {
   const { theme } = useThemeContext();
@@ -12,8 +12,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Header />
       <MainLayout>
-        <Header />
         <Routes>
           {routes.map((route) => (
             <Route key={route.path} path={route.path} element={route.element} />
