@@ -7,7 +7,6 @@ import MainLayout from "./layout/MainLayout";
 
 function App() {
   const { theme } = useThemeContext();
-  console.log("Theme", theme);
 
   return (
     <ThemeProvider theme={theme}>
