@@ -1,9 +1,15 @@
-import { createBrowserRouter } from "react-router";
 import Home from "../pages/home";
 import Error from "../pages/error";
 import Page404 from "../pages/404";
+import { ReactElement } from "react";
 
-export const router = createBrowserRouter([
+type RouteType = {
+  path: string;
+  element: ReactElement;
+  errorElement?: ReactElement;
+};
+
+export const routes: RouteType[] = [
   {
     path: "/",
     element: <Home />,
@@ -14,4 +20,4 @@ export const router = createBrowserRouter([
     element: <Page404 />,
     errorElement: <Error />,
   },
-]);
+];

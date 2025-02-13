@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
-import { useThemeContext } from "../../theme/ThemeContextProvider";
+import { useThemeContext } from "../../context/ThemeProvider";
 
 const NightModeToggle = () => {
   const { mode, toggleColorMode } = useThemeContext();
