@@ -1,9 +1,10 @@
-import { RouterProvider } from "react-router";
-import { router } from "./routes";
+import { Route, Routes } from "react-router";
+import { routes } from "./routes";
 import { ThemeProvider } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
-import { useThemeContext } from "./theme/ThemeContextProvider";
-import MainLayout from "./layout/MainLayout";
+import { useThemeContext } from "./context/ThemeProvider";
+import MainLayout from "./components/layout/MainLayout";
+import Header from "./components/layout/Header";
 
 function App() {
   const { theme } = useThemeContext();
@@ -12,7 +13,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <MainLayout>
-        <RouterProvider router={router} />
+        <Header />
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
       </MainLayout>
     </ThemeProvider>
   );
