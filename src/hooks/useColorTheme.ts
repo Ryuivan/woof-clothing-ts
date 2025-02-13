@@ -13,13 +13,9 @@ export const useColorTheme = () => {
     localStorage.setItem("themeMode", mode);
   }, [mode]);
 
-  const toggleColorMode = () => {
-    setMode((prevMode: PaletteMode): PaletteMode => {
-      const newMode = prevMode === "light" ? "dark" : "light";
-      localStorage.setItem("themeMode", newMode);
-
-      return newMode;
-    });
+  const toggleColorMode = (newMode: PaletteMode) => {
+    setMode(newMode);
+    localStorage.setItem("themeMode", newMode);
   };
 
   const modifiedTheme = useMemo(
