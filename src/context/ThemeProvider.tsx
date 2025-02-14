@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createTheme, PaletteMode, Theme } from "@mui/material";
 import { createContext, FC, PropsWithChildren, useContext } from "react";
-import { useColorTheme } from "../hooks/useColorTheme";
+import useColorTheme from "../hooks/useColorTheme";
 
 type ThemeContextType = {
   mode: string;

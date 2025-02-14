@@ -15,7 +15,7 @@ const Home = () => {
 
       <PageTitle title="New Arrivals" />
 
-      <NewArrivalCardContainer />
+      {/* <NewArrivalCardContainer /> */}
 
     </Box>
   );
