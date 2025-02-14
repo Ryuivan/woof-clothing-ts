@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import NightModeToggle from "../../theme/NightModeToggle";
+import DarkModeToggle from "../../theme/DarkModeToggle";
 import { ReactElement } from "react";
 import { Close } from "@mui/icons-material";
 
@@ -23,7 +23,7 @@ type DrawerListItemType = {
 const drawerListItems: DrawerListItemType[] = [
   {
     name: "Mode",
-    element: <NightModeToggle />,
+    element: <DarkModeToggle />,
   },
 ];
 

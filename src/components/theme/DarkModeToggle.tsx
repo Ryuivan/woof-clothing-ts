@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import { LightMode, DarkMode } from "@mui/icons-material";
 import { useThemeContext } from "../../context/ThemeProvider";
 
-const NightModeToggle = () => {
+const DarkModeToggle = () => {
   const { mode, toggleColorMode } = useThemeContext();
 
   return (
@@ -43,4 +43,4 @@ const NightModeToggle = () => {
   );
 };
 
-export default NightModeToggle;
+export default DarkModeToggle;

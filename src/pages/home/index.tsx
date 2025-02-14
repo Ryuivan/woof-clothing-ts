@@ -1,8 +1,23 @@
+import { Box, Divider } from "@mui/material";
+import CollectionCardContainer from "../../components/layout/home/collectionCard/CollectionCardContainer";
+import PageTitle from "../../components/layout/pageTitle/PageTitle";
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home test</h1>
-    </div>
+    <Box>
+      <PageTitle title="Our Collections" />
+
+      <CollectionCardContainer />
+
+      <Divider sx={{
+        marginY: "32px",
+       }} />
+
+      <PageTitle title="New Arrivals" />
+
+      <NewArrivalCardContainer />
+
+    </Box>
   );
 };
 
