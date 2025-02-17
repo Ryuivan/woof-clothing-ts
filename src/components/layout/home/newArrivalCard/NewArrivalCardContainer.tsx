@@ -9,3 +9,5 @@ const NewArrivalCardContainer = () => {
     </Grid2>
   )
 }
+
+export default NewArrivalCardContainer

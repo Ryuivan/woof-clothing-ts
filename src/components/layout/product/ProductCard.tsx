@@ -18,6 +18,7 @@ import { AddShoppingCart, DoneAll } from "@mui/icons-material";
 import getImageUrl from "../../../utils/getImageUrl";
 import { Link } from "react-router";
 import { makeErrorToast, makeSuccessToast } from "../../../utils/makeToast";
+import { formatNumberToIDR } from "../../../utils/formatNumberToIDR";
 
 type ProductCartProps = {
   product: ProductType;
@@ -99,12 +100,21 @@ const ProductCard = ({
           justifyContent: "space-between",
         }}
       >
-        <Box>
-          <Typography color="text.primary" variant="body1" fontWeight={600}>
+        <Box
+          sx={{
+            overflow: "hidden",
+          }}
+        >
+          <Typography
+            color="text.primary"
+            variant="body1"
+            fontWeight={600}
+            noWrap
+          >
             {product.name}
           </Typography>
           <Typography color="text.primary" variant="body2">
-            Rp. {product.price}.000
+            {formatNumberToIDR(product.price)}
           </Typography>
         </Box>
 

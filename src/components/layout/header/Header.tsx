@@ -4,6 +4,7 @@ import HeaderMobileMenu from "./HeaderMobileMenu";
 import HeaderSettings from "./HeaderSettings";
 import HeaderLogo from "./HeaderLogo";
 import HeaderDesktopMenu from "./HeaderDesktopMenu";
+import { useThemeContext } from "../../../context/ThemeProvider";
 
 export type PageType = {
   name: string;
@@ -20,18 +21,15 @@ const pages: PageType[] = [
     href: "/products",
   },
   {
-    name: "Categories",
-    href: "/",
-  },
-  {
     name: "Cart",
     href: "/cart",
-  }
+  },
 ];
 
 const Header = () => {
   const [openSettings, setOpenSettings] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const { theme } = useThemeContext();
 
   const toggleSettingsDrawer = (newOpenValue: boolean) => {
     setOpenSettings(newOpenValue);
@@ -48,7 +46,10 @@ const Header = () => {
         backgroundColor: "background.navbar",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
-        boxShadow: "none",
+        boxShadow:
+          theme.palette.mode === "light"
+            ? "rgba(111, 111, 111, 0.3) 0px 0.1px 15px"
+            : "rgba(255, 255, 255, 0.3) 0px 0.1px 15px",
       }}
     >
       <Container maxWidth="xl" disableGutters>
@@ -75,11 +76,8 @@ const Header = () => {
               openMenu={openMenu}
               pages={pages}
             />
-
             <HeaderLogo />
-
             <HeaderDesktopMenu pages={pages} />
-
             <HeaderSettings
               toggleSettingsDrawer={toggleSettingsDrawer}
               openSettings={openSettings}
