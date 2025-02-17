@@ -5,15 +5,16 @@ const MainLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Container
       maxWidth="xl"
+      disableGutters
       sx={{
         color: "text.primary",
+        minHeight: "80vh",
         paddingX: {
           xs: "16px",
           sm: "32px",
-          xl: 0
+          xl: 0,
         },
       }}
-      disableGutters
     >
       {children}
     </Container>

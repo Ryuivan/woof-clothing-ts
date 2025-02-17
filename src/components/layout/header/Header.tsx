@@ -65,23 +65,56 @@ const Header = () => {
             },
           }}
         >
-          <Stack
-            width="100%"
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <HeaderMobileMenu
-              toggleMenuDrawer={toggleMenuDrawer}
-              openMenu={openMenu}
-              pages={pages}
-            />
-            <HeaderLogo />
-            <HeaderDesktopMenu pages={pages} />
-            <HeaderSettings
-              toggleSettingsDrawer={toggleSettingsDrawer}
-              openSettings={openSettings}
-            />
+          <Stack width="100%" direction="row" alignItems="center">
+            <Stack
+              flex={1}
+              direction="row"
+              justifyContent="flex-start"
+              sx={{
+                display: {
+                  xs: "flex",
+                  md: "none",
+                },
+              }}
+            >
+              <HeaderMobileMenu
+                toggleMenuDrawer={toggleMenuDrawer}
+                openMenu={openMenu}
+                pages={pages}
+              />
+            </Stack>
+
+            <Stack
+              flex={1}
+              direction="row"
+              justifyContent={{
+                xs: "center",
+                md: "flex-start",
+              }}
+            >
+              <HeaderLogo />
+            </Stack>
+
+            <Stack
+              flex={1}
+              direction="row"
+              justifyContent="center"
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "flex",
+                },
+              }}
+            >
+              <HeaderDesktopMenu pages={pages} />
+            </Stack>
+
+            <Stack flex={1} direction="row" justifyContent="flex-end">
+              <HeaderSettings
+                toggleSettingsDrawer={toggleSettingsDrawer}
+                openSettings={openSettings}
+              />
+            </Stack>
           </Stack>
         </Toolbar>
       </Container>

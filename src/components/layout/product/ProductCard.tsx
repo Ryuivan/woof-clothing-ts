@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { AddShoppingCart, DoneAll } from "@mui/icons-material";
 import getImageUrl from "../../../utils/getImageUrl";
-import { Link } from "react-router";
+// import { Link } from "react-router";
 import { makeErrorToast, makeSuccessToast } from "../../../utils/makeToast";
 import { formatNumberToIDR } from "../../../utils/formatNumberToIDR";
 
@@ -78,19 +78,19 @@ const ProductCard = ({
         },
       }}
     >
-      <Link to={`/products/${product.id}`}>
-        <CardMedia
-          component="img"
-          width="350"
-          height="350"
-          image={img}
-          alt={product.name}
-          sx={{
-            borderRadius: "10px",
-            objectFit: "cover",
-          }}
-        />
-      </Link>
+      {/* <Link to={`/products/${product.id}`}> */}
+      <CardMedia
+        component="img"
+        width="350"
+        height="350"
+        image={img}
+        alt={product.name}
+        sx={{
+          borderRadius: "10px",
+          objectFit: "cover",
+        }}
+      />
+      {/* </Link> */}
 
       <CardContent
         sx={{

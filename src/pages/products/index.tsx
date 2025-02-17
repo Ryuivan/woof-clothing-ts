@@ -16,14 +16,18 @@ import {
 import { useThemeContext } from "../../context/ThemeProvider";
 import PageTitle from "../../components/layout/pageTitle/PageTitle";
 import ProductPagination from "../../components/layout/product/ProductPagination";
+import { useLocation } from "react-router";
 
 const Products = () => {
   const { dispatch, REDUCER_ACTIONS, cart } = useCart();
   const { products } = useProducts();
   const { theme } = useThemeContext();
 
+  const location = useLocation();
+  const categoryInitialState: string = location.state?.category || "All";
   // Category filter
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(categoryInitialState);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);

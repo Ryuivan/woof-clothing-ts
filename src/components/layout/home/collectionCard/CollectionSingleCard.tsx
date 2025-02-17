@@ -1,5 +1,6 @@
-import { Card, Button, Box } from "@mui/material";
+import { Card, Button, Box, Typography } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router";
 
 type CollectionSingleCardProps = {
   image: string;
@@ -7,7 +8,7 @@ type CollectionSingleCardProps = {
 };
 
 const CollectionSingleCard = ({ image, name }: CollectionSingleCardProps) => {
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState<boolean>(false);
 
   return (
     <Card
@@ -48,17 +49,43 @@ const CollectionSingleCard = ({ image, name }: CollectionSingleCardProps) => {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: "20px",
             }}
           >
-            <Button
-              variant="contained"
-              sx={{
-                color: "text.primary",
-                backgroundColor: "background.default",
+            <Typography
+              fontSize="24px"
+              textTransform="uppercase"
+              fontWeight={600}
+              color="#121212"
+              textAlign="center"
+            >
+              {name}
+            </Typography>
+
+            <Link
+              to="/products"
+              state={{
+                category: name,
+              }}
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                justifyContent: "center",
               }}
             >
-              Shop Now
-            </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  color: "text.primary",
+                  backgroundColor: "background.default",
+                }}
+              >
+                Shop Now
+              </Button>
+            </Link>
           </Box>
         )}
       </Box>

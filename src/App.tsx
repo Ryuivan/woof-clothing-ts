@@ -4,6 +4,7 @@ import MainLayout from "./components/layout/MainLayout";
 import Header from "./components/layout/header/Header";
 import AppProvider from "./context/AppProvider";
 import { Bounce, ToastContainer } from "react-toastify";
+import Footer from "./components/layout/footer/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           ))}
         </Routes>
       </MainLayout>
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={5000}
