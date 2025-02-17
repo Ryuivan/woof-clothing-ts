@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useState } from "react";
+import { createContext, ReactElement } from "react";
 
 export type ProductType = {
   id: number;
@@ -20,7 +20,7 @@ const initState: ProductType[] = [
     image: "hoodies-pink-signature",
     description:
       "A thick-material hoodie that is still wearable and comfortable.",
-    price: 249.0,
+    price: 249000,
     category: "Hoodie",
     stock: 10,
     color: "#C39DBA",
@@ -31,7 +31,7 @@ const initState: ProductType[] = [
     image: "hoodies-yellow-signature",
     description:
       "A thick-material hoodie that is still wearable and comfortable.",
-    price: 249.0,
+    price: 249000,
     category: "Hoodie",
     stock: 10,
     color: "#fde97f",
@@ -42,7 +42,7 @@ const initState: ProductType[] = [
     image: "hoodies-green",
     description:
       "A thick-material hoodie that is still wearable and comfortable.",
-    price: 249.0,
+    price: 249000,
     category: "Hoodie",
     stock: 10,
     color: "#3EA590",
@@ -53,7 +53,7 @@ const initState: ProductType[] = [
     image: "hoodies-black",
     description:
       "A thick-material hoodie that is still wearable and comfortable.",
-    price: 249.0,
+    price: 249000,
     category: "Hoodie",
     stock: 10,
     color: "#626669",
@@ -64,7 +64,7 @@ const initState: ProductType[] = [
     image: "hoodies-red",
     description:
       "A thick-material hoodie that is still wearable and comfortable.",
-    price: 249.0,
+    price: 249000,
     category: "Hoodie",
     stock: 10,
     color: "#BB4B63",
@@ -75,7 +75,7 @@ const initState: ProductType[] = [
     image: "hoodies-yellow",
     description:
       "A thick-material hoodie that is still wearable and comfortable.",
-    price: 249.0,
+    price: 249000,
     category: "Hoodie",
     stock: 10,
     color: "#E4D793",
@@ -97,8 +97,8 @@ export type ChildrenType = {
 };
 
 export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
-  const [products, setProducts] = useState<ProductType[]>(initState);
-
+  // const [products, setProducts] = useState<ProductType[]>(initState);
+  const products: ProductType[] = initState; 
 
   // setProducts(initState);
 

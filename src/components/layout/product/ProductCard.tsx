@@ -11,18 +11,20 @@ import {
   CardContent,
   CardMedia,
   IconButton,
+  PaletteMode,
   Typography,
 } from "@mui/material";
 import { AddShoppingCart, DoneAll } from "@mui/icons-material";
 import getImageUrl from "../../../utils/getImageUrl";
 import { Link } from "react-router";
+import { makeErrorToast, makeSuccessToast } from "../../../utils/makeToast";
 
 type ProductCartProps = {
   product: ProductType;
   dispatch: React.Dispatch<ReducerAction>;
   REDUCER_ACTIONS: ReducerActionType;
   inCart: boolean;
-  theme: string;
+  theme: PaletteMode;
 };
 
 const ProductCard = ({
@@ -35,10 +37,31 @@ const ProductCard = ({
   const img: string = getImageUrl(product);
 
   const onAddToCart = () => {
-    dispatch({
-      type: REDUCER_ACTIONS.ADD,
-      payload: { ...product, quantity: 1 },
-    });
+    try {
+      dispatch({
+        type: REDUCER_ACTIONS.ADD,
+        payload: { ...product, quantity: 1 },
+      });
+
+      makeSuccessToast("Item added to cart", theme);
+    } catch (error) {
+      console.error(error);
+      makeErrorToast("Failed to add to cart", theme);
+    }
+  };
+
+  const onRemoveFromCart = () => {
+    try {
+      dispatch({
+        type: REDUCER_ACTIONS.REMOVE,
+        payload: { ...product, quantity: 1 },
+      });
+
+      makeSuccessToast(`Item removed from cart`, theme);
+    } catch (error) {
+      console.error(error);
+      makeErrorToast("Failed to remove from cart", theme);
+    }
   };
 
   return (
@@ -87,7 +110,7 @@ const ProductCard = ({
 
         <Box>
           <CardActions sx={{ padding: 0 }}>
-            <IconButton onClick={onAddToCart}>
+            <IconButton onClick={inCart ? onRemoveFromCart : onAddToCart}>
               {inCart ? <DoneAll /> : <AddShoppingCart />}
             </IconButton>
           </CardActions>

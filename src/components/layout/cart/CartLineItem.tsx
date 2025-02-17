@@ -1,11 +1,24 @@
-import { Box } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  ListItem,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from "@mui/material";
 import {
   CartItemType,
   ReducerAction,
   ReducerActionType,
 } from "../../../context/CartProvider";
-import { ActionDispatch, ChangeEvent, ReactElement } from "react";
+import { ActionDispatch, ReactElement } from "react";
 import getImageUrl from "../../../utils/getImageUrl";
+import { Close } from "@mui/icons-material";
+import { formatNumberToIDR } from "../../../utils/formatNumberToIDR";
 
 type CartLineItemProps = {
   item: CartItemType;
@@ -19,8 +32,6 @@ const CartLineItem = ({
   REDUCER_ACTIONS,
 }: CartLineItemProps) => {
   const img: string = getImageUrl(item);
-  // console.log(`${item.name}: ${img}`);
-
   const lineTotal: number = item.price * item.quantity;
   const highestQuantity: number = 10 > item.quantity ? 10 : item.quantity;
 
@@ -30,16 +41,16 @@ const CartLineItem = ({
 
   const options: ReactElement[] = optionValues.map((value) => {
     return (
-      <option key={`opt${value}`} value={value}>
+      <MenuItem key={`opt${value}`} value={value}>
         {value}
-      </option>
+      </MenuItem>
     );
   });
 
-  const onChangeQuantity = (event: ChangeEvent<HTMLSelectElement>) => {
+  const onChangeQuantity = (event: SelectChangeEvent<number>) => {
     dispatch({
       type: REDUCER_ACTIONS.QUANTITY,
-      payload: { ...item, quantity: parseInt(event.target.value) },
+      payload: { ...item, quantity: event.target.value as number },
     });
   };
 
@@ -50,38 +61,185 @@ const CartLineItem = ({
     });
   };
 
-  
-
   return (
-    <Box>
-      <li>
-        <Box>
-          <img src={img} alt={item.name} width={300} height={300} />
-        </Box>
-        <Box>
-          <Box>
-            <Box>{item.name}</Box>
-            <Box>{item.price}</Box>
-            <Box>
-              <label htmlFor="itemQty">Quantity:</label>
-              <select
+    <ListItem
+      disablePadding
+      sx={{
+        backgroundColor: "background.paper",
+        borderRadius: "16px",
+        padding: "16px",
+        width: "100%",
+        display: "flex",
+        flexDirection: {
+          xs: "column",
+          sm: "row",
+        },
+        height: {
+          xs: "auto",
+          sm: "230px",
+        },
+        alignItems: "center",
+        gap: "24px",
+        marginBottom: "16px",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minWidth: "100px",
+          height: {
+            xs: "auto",
+            sm: "200px",
+          },
+          flexShrink: 0,
+        }}
+      >
+        <img
+          src={img}
+          alt={item.name}
+          width="100%"
+          height="100%"
+          style={{ borderRadius: "8px" }}
+        />
+      </Box>
+
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        width="100%"
+        height="100%"
+      >
+        <Stack
+          direction="column"
+          justifyContent="space-between"
+          height="100%"
+          sx={{
+            overflow: "hidden",
+          }}
+        >
+          <Typography
+            fontSize={{
+              xs: "18px",
+              sm: "20px",
+              lg: "24px",
+            }}
+            fontWeight={600}
+            color="text.primary"
+          >
+            {item.name}
+          </Typography>
+
+          <Stack
+            direction={{
+              xs: "column",
+              md: "row",
+              lg: "column",
+              xl: "row",
+            }}
+            justifyContent={{
+              xs: "start",
+              md: "space-between",
+              lg: "start",
+              xl: "space-between",
+            }}
+            spacing={{
+              xs: 2,
+              md: 5,
+              lg: 2,
+              xl: 5,
+            }}
+            sx={{
+              color: "text.secondary",
+              flex: 1,
+              flexWrap: "wrap",
+              marginTop: "16px",
+            }}
+          >
+            <Box
+              sx={{
+                paddingBottom: "4px",
+              }}
+            >
+              <Typography
+                fontSize="14px"
+                sx={{
+                  display: {
+                    xs: "none",
+                    md: "block",
+                    lg: "none",
+                    xl: "block",
+                  },
+                }}
+              >
+                Price
+              </Typography>
+              <Typography
+                fontSize={{
+                  xl: "16px",
+                }}
+                fontWeight={500}
+              >
+                {formatNumberToIDR(item.price)}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "block",
+                  lg: "none",
+                  xl: "block",
+                },
+              }}
+            >
+              <Typography>*</Typography>
+            </Box>
+
+            <FormControl
+              variant="standard"
+              sx={{
+                marginTop: "32px",
+                width: "200px",
+              }}
+            >
+              <InputLabel id="itemQty">Quantity</InputLabel>
+              <Select
                 name="itemQty"
-                id="itemQty"
+                labelId="itemQty"
                 value={item.quantity}
                 onChange={onChangeQuantity}
                 aria-label="quantity"
               >
                 {options}
-              </select>
-            </Box>
-            <Box>Line item total: {lineTotal}</Box>
-            <Box>
-              <button onClick={onRemoveFromCart}>Remove</button>
-            </Box>
+              </Select>
+            </FormControl>
+          </Stack>
+
+          <Box
+            sx={{
+              marginTop: {
+                xs: "32px",
+                sm: 0,
+              },
+            }}
+          >
+            <Typography fontWeight={600} fontSize="18px">
+              {formatNumberToIDR(lineTotal)}
+            </Typography>
           </Box>
-        </Box>
-      </li>
-    </Box>
+        </Stack>
+
+        <Stack direction="column" justifyContent="center" alignItems="flex-end">
+          <IconButton onClick={onRemoveFromCart}>
+            <Close />
+          </IconButton>
+        </Stack>
+      </Stack>
+    </ListItem>
   );
 };
 
