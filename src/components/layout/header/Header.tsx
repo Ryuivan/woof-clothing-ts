@@ -23,6 +23,10 @@ const pages: PageType[] = [
     name: "Categories",
     href: "/",
   },
+  {
+    name: "Cart",
+    href: "/cart",
+  }
 ];
 
 const Header = () => {

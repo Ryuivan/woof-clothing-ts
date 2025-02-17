@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, ReactElement, useMemo, useReducer } from "react";
 import { ChildrenType } from "./ProductsProvider";
 
@@ -38,6 +39,8 @@ const reducer = (
   state: CartStateType,
   action: ReducerAction
 ): CartStateType => {
+  let newState: CartStateType;
+
   switch (action.type) {
     case REDUCER_ACTION_TYPE.ADD: {
       if (!action.payload) {
@@ -56,16 +59,12 @@ const reducer = (
 
       const quantity: number = itemExists ? itemExists.quantity + 1 : 1;
 
-      return {
+      newState = {
         ...state,
-        cart: [
-          ...filteredCart,
-          {
-            ...product,
-            quantity,
-          },
-        ],
+        cart: [...filteredCart, { ...product, quantity }],
       };
+
+      break;
     }
 
     case REDUCER_ACTION_TYPE.REMOVE: {
@@ -79,7 +78,9 @@ const reducer = (
         (item) => item.id !== id
       );
 
-      return { ...state, cart: [...filteredCart] };
+      newState = { ...state, cart: [...filteredCart] };
+
+      break;
     }
 
     case REDUCER_ACTION_TYPE.QUANTITY: {
@@ -103,32 +104,46 @@ const reducer = (
         (item) => item.id !== id
       );
 
-      return { ...state, cart: [...filteredCart, updatedItem] };
+      newState = { ...state, cart: [...filteredCart, updatedItem] };
+
+      break;
     }
 
     case REDUCER_ACTION_TYPE.SUBMIT: {
-      return { ...state, cart: [] };
+      newState = { ...state, cart: [] };
+
+      break;
     }
 
     default:
       throw new Error("Unidentified reducer error type");
   }
+
+  localStorage.setItem("cart", JSON.stringify(newState.cart));
+
+  return newState;
 };
 
 const useCartContext = (initCartState: CartStateType) => {
-  const [state, dispatch] = useReducer(reducer, initCartState);
+  const storedCart = localStorage.getItem("cart");
+  const initialState = storedCart
+    ? { cart: JSON.parse(storedCart) }
+    : initCartState;
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const REDUCER_ACTIONS = useMemo(() => {
     return REDUCER_ACTION_TYPE;
   }, []);
 
-  const totalItems = state.cart.reduce((previousValue, cartItem) => {
-    return previousValue + cartItem.quantity;
-  }, 0);
-
-  const totalPrice = state.cart.reduce((previousValue, cartItem) => {
-    return previousValue + cartItem.price * cartItem.quantity;
-  }, 0);
+  const totalItems = state.cart.reduce(
+    (total: number, item: CartItemType) => total + item.quantity,
+    0
+  );
+  const totalPrice = state.cart.reduce(
+    (total: number, item: CartItemType) => total + item.price * item.quantity,
+    0
+  );
 
   const cart = state.cart;
 
@@ -149,8 +164,10 @@ export const CartContext =
   createContext<UseCartContextType>(initCartContextState);
 
 export const CartProvider = ({ children }: ChildrenType): ReactElement => {
+  const cartContextValue = useCartContext(initCartState);
+
   return (
-    <CartContext.Provider value={useCartContext(initCartState)}>
+    <CartContext.Provider value={cartContextValue}>
       {children}
     </CartContext.Provider>
   );
